@@ -1,15 +1,21 @@
 from app import app
 
+import base64
+import unicodedata
+from io import BytesIO
 from IPython import get_ipython
 import numpy as np
 import pandas as pd
+import mpld3
 import os
 import math
 import decimal
 import matplotlib
 import matplotlib.image as image
+from matplotlib.figure import Figure
 from matplotlib import artist
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt 
+from matplotlib.widgets import Button, RadioButtons, CheckButtons
 from matplotlib import rcParams
 import ipywidgets
 from ipywidgets import interact, IntSlider, interactive, widgets, interact_manual,HBox,fixed
@@ -24,8 +30,7 @@ rcParams['font.family'] = 'sans-serif'
 rcParams['font.sans-serif'] = ['Franklin Gothic Medium', 'Franklin Gothic Book']
 #get_ipython().run_line_magic('matplotlib', 'inline')
 
-
-Rotelle = pd.read_csv(r'C:\Users\Marti\OneDrive\Dokumenter\VS Projects\Soccermetrics\Backend\Python\app\static\Player_Stats_LL.csv', index_col=0) #husk å sette denne til 1 om det ikke funker
+Rotelle = pd.read_csv(r'C:\Users\Marti\OneDrive\Dokumenter\VS Projects\Soccermetrics\Backend\Python\app\static\Player_Stats_LL.csv', index_col=0) #husk å sette denne til 1 om det ikke funker || Create buttons for deafult league vs top 5
 
 Rotelle = Rotelle.fillna(0)
 
@@ -35,11 +40,11 @@ pd.set_option('display.max_rows', None)
 
 Rotelle['90s'] = Rotelle['minutes']/90
 
-minutes_position_filtered = (Rotelle['minutes'] >= 90)  & (Rotelle['position'].str.startswith('FW'))
+minutes_position_filtered = (Rotelle['minutes'] >= 90)  & (Rotelle['position'].str.startswith('FW')) # Create a slider for minutes played and checkbox for position?
 df = Rotelle.loc[minutes_position_filtered, ['player', 'squad', 'minutes', 'position', 'passes_pct', 'progressive_passes', 'passes_into_final_third', 'passes_into_penalty_area', 'assisted_shots','passes_pressure', 'miscontrols', 'dispossessed', 'dribbles_completed_pct', 'dribbles_completed', 'carry_progressive_distance', 'carries', 'carries_into_final_third','touches_att_3rd', 'touches_att_pen_area', 'pass_targets', 'passes_received_pct', 'passes_received', 'gca_per90', 'sca_per90', 'xg_per90', 'npxg_per90','xa_per90', 'npxg_xa_per90', 'xa_net', 'npxg_net','npxg_per_shot', 'shots_on_target_pct', 'aerials_won_pct','aerials_won', 'tackles_won', 'tackles', 'interceptions', 'ball_recoveries', 'pressure_regain_pct', 'dribbled_past', '90s']] #Do not touch this line!!
 minutes_filteret = df.set_index('player')
 
-minutes_filteret.head(500)
+minutes_filteret.head(5)
 
 passing_percentiles = pd.DataFrame()
 passing_percentiles['squad'] = minutes_filteret['squad']
@@ -94,16 +99,15 @@ def label_adjuster(i):
     else:
         return -10
 
-def percentile_chart(player_name):
-    
+def percentile_chart(player_name): # Create search function for possible player names
     # Creates bars based on the player entered
     theta = list(map((lambda x: x*math.pi/24), list(range(1,49,2))))
-    radii = list(passing_percentiles.loc[player_name][1:25])
+    radii = list(passing_percentiles.loc[player_name][1:25]) # Here i must make a button that can choose between standart_percentiles, defending_percentile, midfild_percentile and attacking_percentile
     width = [math.pi/12]*len(radii)
     
     # Aesthetic details of the figure including color, axis tick size, x value specifics
     # and r-axis limits, etc.
-    plt.figure(figsize=(10,10), facecolor = '#ffffff')
+    fig = plt.figure(figsize=(10,10), facecolor = '#ffffff')
     ax = plt.subplot(111, projection='polar')
     ax.set_facecolor('#ffffff')
     #ax = plt.subplot(111, projection='polar')
@@ -134,11 +138,9 @@ def percentile_chart(player_name):
     plt.text(-0.15, -0.1, 'Data obtained from FBRef.com',          horizontalalignment='left', verticalalignment='top', color='xkcd:black',              transform=ax.transAxes, size='14')
     plt.text(0.5, 1.22, "Percentile Rankings vs DF in same League, 2020/21",          horizontalalignment='center', verticalalignment='top', color='#212f45', size='14',              transform=ax.transAxes)
     plt.text(1.2, -0.075, '\nExcludes players with <600 minutes',         horizontalalignment='right', verticalalignment='top', color='xkcd:black',              style='italic', transform=ax.transAxes, size='14')
-
-    
   
     #fixing bars lables
-    plt.text(1.11, 0.59, l[1],          horizontalalignment='center', verticalalignment='top', color='xkcd:black',              transform=ax.transAxes, size='13',)
+    plt.text(1.11, 0.59, l[1],horizontalalignment='center', verticalalignment='top', color='xkcd:black',              transform=ax.transAxes, size='13',)
     plt.text(1.07, 0.7, l[2],          horizontalalignment='center', verticalalignment='center', color='xkcd:black',             transform=ax.transAxes, size='13',)
     plt.text(1.02, 0.81, l[3],          horizontalalignment='center', verticalalignment='center', color='xkcd:black',             transform=ax.transAxes, size='13')
     plt.text(0.92, 0.93, l[4],          horizontalalignment='center', verticalalignment='center', color='xkcd:black',             transform=ax.transAxes, size='13')
@@ -163,17 +165,27 @@ def percentile_chart(player_name):
     plt.text(1.08, 0.3, l[23],          horizontalalignment='center', verticalalignment='center', color='xkcd:black',             transform=ax.transAxes, size='13') 
     plt.text(1.11, 0.42, l[24],          horizontalalignment='center', verticalalignment='center', color='xkcd:black',             transform=ax.transAxes, size='13')            
 
-    
     # Annotating bar labels with their values
     for i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]:
         plt.annotate(str(int(round(radii[i])))+"%", (theta[i], radii[i]+label_adjuster(radii[i])), color='xkcd:black',                 horizontalalignment='center', fontsize=14)
     
+    # Buttons
+    ax_button = plt.axes([0.05,0.1,0.08,0.05]) #position of button
+    #Properties of button
+    grid_button = Button(ax_button, 'Grid', color='white', hovercolor='grey')
+
+    def grid(val):
+        ax.grid()
+        fig.canvas.draw()
+    grid_button.on_clicked(grid)
+
     plt.tight_layout()
     plt.subplots_adjust(left=0.12, right=0.85, top=0.85, bottom=0.08)
 
-    plt.show() #If saving pic this needs to be hashed out
-
+    plt.show()
+    
 @app.route('/rotelleview')
 def rotelleview():
     return percentile_chart('Vinicius Júnior')
+    
 
