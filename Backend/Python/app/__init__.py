@@ -5,4 +5,4 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 # Here you can add all your views and modules(?) 
-from app import views, rotelleView #, playerScraperView
+from app import rotelleView #, playerScraperView
