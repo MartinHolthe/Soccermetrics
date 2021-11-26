@@ -99,8 +99,12 @@ df_outfield_L1 = get_outfield_data('https://fbref.com/en/comps/13/','/Ligue-1-St
 df_outfield_BL = get_outfield_data('https://fbref.com/en/comps/20/','/Bundesliga-Stats')
 df_outfield_SA = get_outfield_data('https://fbref.com/en/comps/11/','/Serie-A-Stats')
 
-pd.set_option('display.max_columns', None)  
-pd.set_option('display.max_rows', None) 
+#Cleaning dataframe as some players position is seperated by comma if more then one
+df_outfield_PL['position'] = (df_outfield_PL['position'].str.replace(',',' '))
+df_outfield_LL['position']= (df_outfield_LL['position'].str.replace(',',' '))
+df_outfield_L1['position'] = (df_outfield_L1['position'].str.replace(',',' '))
+df_outfield_BL['position'] = (df_outfield_BL['position'].str.replace(',',' '))
+df_outfield_SA['position'] = (df_outfield_SA['position'].str.replace(',',' '))
 
 df_outfield_PL.to_csv(r'C:\Users\Marti\OneDrive\Dokumenter\VS Projects\Soccermetrics\Backend\Python\app\static\Player_Stats_PL.csv')
 df_outfield_LL.to_csv(r'C:\Users\Marti\OneDrive\Dokumenter\VS Projects\Soccermetrics\Backend\Python\app\static\Player_Stats_LL.csv')
@@ -110,6 +114,6 @@ df_outfield_SA.to_csv(r'C:\Users\Marti\OneDrive\Dokumenter\VS Projects\Soccermet
 
 @app.route('/playerscrape')
 def playerscrape():
-    return df_outfield_PL.to_json(orient = 'index')
+    return df_outfield_BL.to_json(orient = 'index')
 
     
