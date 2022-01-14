@@ -1,6 +1,6 @@
 from app import app
 
-#Truncate before inserting ?
+#Create table if not exist (good docker practice?) else Truncate before inserting ?
 
 import psycopg2
 conn = psycopg2.connect("host=localhost dbname=Soccermetrics user=postgres password='2312Ottestad'")
