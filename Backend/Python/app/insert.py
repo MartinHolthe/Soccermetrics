@@ -1,5 +1,7 @@
 from app import app
 
+#Create table if not exist (good docker practice?) else Truncate before inserting ?
+
 import psycopg2
 
 #connect to DB
@@ -53,5 +55,10 @@ cur.close()
 conn.close()
 
 @app.route('/dbinsert')
+<<<<<<< HEAD
 def insert():
     return 'insertions into db completed'
+=======
+def playerscrape():
+    return 'insertion into db completed'
+>>>>>>> 034c89265b30f3cfd29f55ef00a0c1942b2ea0ed
