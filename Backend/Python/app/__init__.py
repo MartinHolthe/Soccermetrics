@@ -5,4 +5,6 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 # Here you can add all your views and modules(?) 
-from app import insert #playerScraperView
+from app import concatCSV, cleanCSV, insert
+
+#playerScraperView
