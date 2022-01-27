@@ -1,4 +1,8 @@
-
-<div id="chart">
-    <canvas id="rotelle"></canvas>
-</div>
+<mat-card>
+    <mat-card-actions>
+        <input name="fontColor" [(ngModel)]="fontColor" type="text">
+        <button mat-button (click)="updateLike()">RED</button>
+        <button mat-button (click)="updateShare()">GREEN</button>
+        <p [style.color]="fontColor">template-driven form</p>
+      </mat-card-actions>
+</mat-card>
