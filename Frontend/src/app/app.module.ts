@@ -8,6 +8,8 @@ import { MaterialModule } from './material.module';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { RotelleComponent } from './rotelle/rotelle.component';
+import { BundesligaService } from './shared/services/bundesliga.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,8 +24,9 @@ import { RotelleComponent } from './rotelle/rotelle.component';
     MaterialModule,
     MatInputModule,
     FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [BundesligaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

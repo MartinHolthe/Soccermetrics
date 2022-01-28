@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { BundesligaService } from '../shared/services/bundesliga.service';
+import { Players } from '../interfaces/players';
+import { Player } from '../interfaces/player';
+
 
 @Component({
   selector: 'app-rotelle',
@@ -6,21 +10,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rotelle.component.scss']
 })
 export class RotelleComponent implements OnInit {
-  fontColor = "green";
-
-  constructor() { }
+  
+  players: Players[] = [];
+  //player: Player[] = [];
+  
+  constructor(private bundesligaService: BundesligaService) { }
 
   ngOnInit(): void {
-  }
+    this.bundesligaService.getPlayers()
+    .subscribe
+    ( 
+      result =>
+      {
+        this.players = result;
+      })
 
-  updateLike(){
-    console.log('hi')
-    this.fontColor ='red';
+      /* this.bundesligaService.getPlayerById()
+      .subscribe
+      ( 
+        result =>
+        {
+          this.player = result;
+        }) */
   }
-
-  updateShare(){
-    console.log('hi')
-    this.fontColor ='green';
-  }
-
 }

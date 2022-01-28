@@ -1,8 +1,7 @@
-<mat-card>
-    <mat-card-actions>
-        <input name="fontColor" [(ngModel)]="fontColor" type="text">
-        <button mat-button (click)="updateLike()">RED</button>
-        <button mat-button (click)="updateShare()">GREEN</button>
-        <p [style.color]="fontColor">template-driven form</p>
-      </mat-card-actions>
-</mat-card>
+<div *ngFor="let play of players">
+    {{play | json}}
+</div>
+
+<!-- <div *ngFor="let player of players">
+    {{player | json}}
+</div> -->
