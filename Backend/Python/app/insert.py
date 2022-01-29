@@ -11,11 +11,17 @@ conn = psycopg2.connect("host=localhost dbname=Soccermetrics user=postgres passw
 cur = conn.cursor()
 
 cur.execute('truncate table bundesliga')
+cur.execute('truncate table bundesliga_percentiles')
 cur.execute('truncate table la_liga')
 cur.execute('truncate table ligue_1')
 cur.execute('truncate table premier_league')
 cur.execute('truncate table serie_a')
 cur.execute('truncate table top_5_leagues')
+
+with open('app\static\Percentile_Bundesliga.csv', 'r', encoding='UTF-8') as f:
+    next(f) # Skip the header row. insert.py
+    #Spesify name of table you want to execute quary against
+    cur.copy_from(f, 'bundesliga_percentiles', sep=',')
 
 with open('app\static\Player_Stats_BL.csv', 'r', encoding='UTF-8') as f:
     next(f) # Skip the header row. insert.py
@@ -55,10 +61,6 @@ cur.close()
 conn.close()
 
 @app.route('/dbinsert')
-<<<<<<< HEAD
 def insert():
     return 'insertions into db completed'
-=======
-def playerscrape():
-    return 'insertion into db completed'
->>>>>>> 034c89265b30f3cfd29f55ef00a0c1942b2ea0ed
+

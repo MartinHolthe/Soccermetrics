@@ -13,9 +13,10 @@ app.use(express.json()) // => req.body
 //GET all rows from table
 app.get("/bundesliga", async(req, res) => {
     try {
-        const allBundesliga = await pool.query("SELECT id, player_name, position, squad FROM bundesliga");
+        const allBundesliga = await pool.query("SELECT * FROM bundesliga_percentiles");
 
-        res.json(allBundesliga.rows);
+        res.setHeader('Content-Type', 'application/json');
+        res.json(allBundesliga.rows); // sends all values as string - how to not do this?
     } catch (error) {
         console.error(err.mesage);
     }
@@ -25,7 +26,7 @@ app.get("/bundesliga", async(req, res) => {
 app.get("/bundesliga/:id", async(req, res) => {
     const {id} = req.params
     try {
-        const bundesliga = await pool.query("SELECT id, player_name, position, squad, age FROM bundesliga WHERE id = $1", [id]);
+        const bundesliga = await pool.query("SELECT * FROM bundesliga_percentiles WHERE id = $1", [id]);
 
         res.json(bundesliga.rows[0]);
     } catch (error) {

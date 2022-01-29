@@ -1,0 +1,15 @@
+<div style="margin: auto; width: 50%; border: 3px solid; padding: 10px;">
+    <select [(ngModel)]='PlayerSelected' (ngModelChange)='onPlayerSelected($event)'>
+        <option *ngFor="let percentile of percentiles" [value]="percentile.id">
+                {{percentile.player}}
+        </option>
+    </select>
+</div>
+
+<div style="margin: auto; width: 50%; border: 3px solid; padding: 10px;">
+    Player ID: {{PlayerSelected}}
+</div>
+
+<div>
+    {{percentilesId | json}}
+</div>

@@ -7,14 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { RotelleComponent } from './rotelle/rotelle.component';
+import { BundesligaComponent } from './bundesliga/bundesliga.component';
 import { BundesligaService } from './shared/services/bundesliga.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RotelleComponent } from './rotelle/rotelle.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    BundesligaComponent,
     RotelleComponent
   ],
   imports: [
@@ -24,7 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+  
+    
   ],
   providers: [BundesligaService],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Percentiles } from 'src/app/interfaces/percentiles';
+import { PercentilesId } from 'src/app/interfaces/percentilesId';
 
 const BASE_URL = 'http://localhost:5000/'; // add this to an environment config file
 
@@ -11,17 +13,15 @@ const BASE_URL = 'http://localhost:5000/'; // add this to an environment config 
 export class BundesligaService {
 
   private bundesliga = 'bundesliga';
-  //private bundesligaId = 'bundesliga?id';
 
   constructor(private http:HttpClient) { }
 
-  getPlayers(): Observable<any> {
-    return this.http.get(`${BASE_URL}${this.bundesliga}`);
+  getPlayers(): Observable<Percentiles[]> {
+    return this.http.get<Percentiles[]>(`${BASE_URL}${this.bundesliga}`);
   }
 
-  /* getPlayerById(): Observable<any> {
-    let params1 = new HttpParams().set(':id', 1);
+  getPlayerById(selectedPlayerId:string): Observable<PercentilesId> {
 
-    return this.http.get("http://localhost:5000/bundesliga", {params:params1});
-  } */
+    return this.http.get<PercentilesId>("http://localhost:5000/bundesliga/" + selectedPlayerId);
+  }
 }
