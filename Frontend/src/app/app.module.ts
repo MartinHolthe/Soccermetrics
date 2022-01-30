@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,8 +12,7 @@ import { BundesligaComponent } from './bundesliga/bundesliga.component';
 import { BundesligaService } from './shared/services/bundesliga.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RotelleComponent } from './rotelle/rotelle.component';
-
-
+import { NgChartsModule } from 'ng2-charts'; // without this wrapper chart.js will not work
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { RotelleComponent } from './rotelle/rotelle.component';
     MatInputModule,
     FormsModule,
     HttpClientModule,
-  
+    NgChartsModule
     
   ],
   providers: [BundesligaService],
