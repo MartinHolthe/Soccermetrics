@@ -11,7 +11,7 @@ export interface Percentiles {
     "Pressured Passes Per 90": string
     "Progressive Passes Per 90": string
     "Successful Deliveries Into Box Per 90": string
-    "Key Passes Per 90": string
+    "Key Passes Per 90": number
     "Rate Adj Target of an Attempted Pass": string
     "Turnovers Per 90": string
     "Rate Adj Successful Dribbles Per 90": string
