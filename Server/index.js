@@ -22,7 +22,7 @@ app.get("/bundesliga", async(req, res) => {
     }
 })
 
-//GET a row from table - try "/bundesliga/:id/:position/:minutes" +
+//GET a row from table - try "/bundesliga/:id/:position/:minutes" + "SELECT Percentiles[dribble past], Percentiles[blocks] etc.. FROM bundesliga_percentiles WHERE id = ? AND position = ? and minutes = ?", [id, position, minutes]
 app.get("/bundesliga/:id", async(req, res) => {
     const {id} = req.params
     try {
