@@ -7,21 +7,20 @@ import { PercentilesId } from 'src/app/interfaces/percentilesId';
 const BASE_URL = 'http://localhost:5000/'; // add this to an environment config file
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class BundesligaService {
-
   private bundesliga = 'bundesliga';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPlayers(): Observable<Percentiles[]> {
     return this.http.get<Percentiles[]>(`${BASE_URL}${this.bundesliga}`);
   }
 
-  getPlayerById(selectedPlayerId:string): Observable<PercentilesId> {
-
-    return this.http.get<PercentilesId>("http://localhost:5000/bundesliga/" + selectedPlayerId);
+  getPlayerById(selectedPlayerId: string): Observable<PercentilesId> {
+    return this.http.get<PercentilesId>(
+      'http://localhost:5000/bundesliga/' + selectedPlayerId
+    );
   }
 }

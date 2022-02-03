@@ -23,32 +23,83 @@ export class BundesligaComponent implements OnInit {
       console.log('getPlayers succeded', result);
       this.percentiles = result;
     });
+    this.chart.update();
   }
 
   onPlayerSelected(selectedPlayerId: number): void {
-    console.log(this.percentiles[selectedPlayerId]);
+    console.log('Selected player: ', this.percentiles[selectedPlayerId]);
 
     this.chart = new Chart('canvas', {
       type: 'polarArea',
 
       data: {
-        labels: [],
+        labels: [this.percentiles[selectedPlayerId].player,this.percentiles[selectedPlayerId].minutes],
         datasets: [
           {
-            label: this.percentiles[selectedPlayerId].player,
+            label: 'Rotelle',
             data: [
-              this.percentiles[selectedPlayerId]['Key Passes Per 90'], //How to parese this to string
-              6,
-              5,
-              4,
-              3,
+              //Passing stats
+              this.percentiles[selectedPlayerId]['Key_Passes_Per_90'], //How to parse this to string
+              this.percentiles[selectedPlayerId].Successful_Deliveries_Into_Box_Per_90,
+              this.percentiles[selectedPlayerId].Progressive_Passes_Per_90,
+              this.percentiles[selectedPlayerId].Pressured_Passes_Per_90,
+              this.percentiles[selectedPlayerId]['Pass_Completion_%'],
+
+              //Defending stats 
+              this.percentiles[selectedPlayerId].Dribbled_Past, //How to parse this to string
+              this.percentiles[selectedPlayerId]['Rate_Adj_Tackles_Won_%'],
+              this.percentiles[selectedPlayerId]['Pressure_Regain_%'],
+              this.percentiles[selectedPlayerId].Interceptions_Per_90,
+              this.percentiles[selectedPlayerId].Ball_recoveries_Per_90,
+              this.percentiles[selectedPlayerId]['Rate_Adj_Aerials_Won_%'],
+
+              //Attacking stats 
+              this.percentiles[selectedPlayerId].Netto_xA, //How to parse this to string
+              this.percentiles[selectedPlayerId].xG_Per_Shot,
+              this.percentiles[selectedPlayerId].Non_Penalty_xA_xG_Per_90,
+              this.percentiles[selectedPlayerId].Non_Penalty_xG_Per_90,
+              this.percentiles[selectedPlayerId].xA_Per_90,
+              this.percentiles[selectedPlayerId].SCA_Per_90,
+              this.percentiles[selectedPlayerId].GCA_Per_90,
+
+              //Possesion stats 
+              this.percentiles[selectedPlayerId].Touches_in_Box, //How to parse this to string
+              this.percentiles[selectedPlayerId].Final_Third_Entries,
+              this.percentiles[selectedPlayerId].Progressive_Distance_Per_Carry,
+              this.percentiles[selectedPlayerId].Rate_Adj_Successful_Dribbles_Per_90,
+              this.percentiles[selectedPlayerId].Turnovers_Per_90,
+              this.percentiles[selectedPlayerId].Rate_Adj_Target_of_an_Attempted_Pass
             ],
             backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(75, 192, 192)',
+              //Gul - Passing
               'rgb(255, 205, 86)',
-              'rgb(201, 203, 207)',
+              'rgb(255, 205, 86)',
+              'rgb(255, 205, 86)',
+              'rgb(255, 205, 86)',
+              'rgb(255, 205, 86)',
+              //Grønn - Defending
+              'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
+              //Rød - Attacking
+              'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
+              //Blå - Possesion
               'rgb(54, 162, 235)',
+              'rgb(54, 162, 235)',
+              'rgb(54, 162, 235)',
+              'rgb(54, 162, 235)',
+              'rgb(54, 162, 235)',
+              'rgb(54, 162, 235)'
+              
             ],
           },
         ],

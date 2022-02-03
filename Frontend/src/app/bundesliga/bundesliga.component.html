@@ -1,14 +1,14 @@
-<div style="margin: auto; width: 50%; border: 3px solid; padding: 10px;">
+<div style="margin: auto; width: 70%; border: 3px solid; padding: 10px;">
     <select [(ngModel)]='PlayerSelected' (ngModelChange)='onPlayerSelected($event)'>
         <option *ngFor="let percentile of percentiles" [value]="percentile.id">
-                {{percentile.player}}
+            {{percentile.player}}
         </option>
     </select>
 </div>
 
-<div style="margin: auto; width: 50%; border: 3px solid; padding: 10px;" >
+<div style="margin: auto; width: 70%; border: 3px solid; padding: 10px;">
     Player ID: {{PlayerSelected}} 
-    <canvas id="canvas" style="width: 50%; margin: auto;" >{{chart}}</canvas>
+    <canvas id="canvas" style="width: 60%; margin: auto;">{{chart}}</canvas>
 </div>
 
 

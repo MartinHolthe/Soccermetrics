@@ -6,32 +6,32 @@ export interface Percentiles {
     squad: string
     position: string
     minutes: string
-    "90s": string
-    "Pass Completion %": string
-    "Pressured Passes Per 90": string
-    "Progressive Passes Per 90": string
-    "Successful Deliveries Into Box Per 90": string
-    "Key Passes Per 90": number
-    "Rate Adj Target of an Attempted Pass": string
-    "Turnovers Per 90": string
-    "Rate Adj Successful Dribbles Per 90": string
-    "Progressive Distance Per Carry": string
-    "Final Third Entries": string
-    "Touches in Box": string
-    "Touches in 1/3": string
-    "GCA Per 90": string
-    "SCA Per 90": string
-    "xA Per 90": string
-    "Non-Penalty xG Per 90": string
-    "Non-Penalty xA + xG Per 90": string
-    "xG Per Shot": string
-    "Netto xA": string
-    "Rate Adj Aerials Won %": string
-    "Ball recoveries Per 90": string
-    "Interceptions Per 90": string
-    "Pressure Regain %": string
-    "Rate Adj Tackles Won %": string
-    "Dribbled Past": string
-    "Clearances Per 90": string
-    "Blocks Per 90": string
+    "90s": number
+    "Pass_Completion_%": number
+    "Pressured_Passes_Per_90": number
+    "Progressive_Passes_Per_90": number
+    "Successful_Deliveries_Into_Box_Per_90": number
+    "Key_Passes_Per_90": number
+    "Rate_Adj_Target_of_an_Attempted_Pass": number
+    "Turnovers_Per_90": number
+    "Rate_Adj_Successful_Dribbles_Per_90": number
+    "Progressive_Distance_Per_Carry": number
+    "Final_Third_Entries": number
+    "Touches_in_Box": number
+    "Touches_in_1/3": number
+    "GCA_Per_90": number
+    "SCA_Per_90": number
+    "xA_Per_90": number
+    "Non_Penalty_xG_Per_90": number
+    "Non_Penalty_xA_xG_Per_90": number
+    "xG_Per_Shot": number
+    "Netto_xA": number
+    "Rate_Adj_Aerials_Won_%": number
+    "Ball_recoveries_Per_90": number
+    "Interceptions_Per_90": number
+    "Pressure_Regain_%": number
+    "Rate_Adj_Tackles_Won_%": number
+    "Dribbled_Past": number
+    "Clearances_Per_90": number
+    "Blocks_Per_90": number
   }
