@@ -74,6 +74,7 @@ export class BundesligaComponent implements OnInit {
         datasets: [
           {
             label: 'Rotelle',
+            borderAlign: 'inner',
             data: [
               //Passing stats
               this.percentiles[selectedPlayerId]['Key_Passes_Per_90'], //How to parse this to string
