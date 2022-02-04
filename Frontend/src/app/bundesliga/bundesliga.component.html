@@ -1,5 +1,5 @@
 <div style="margin: auto; width: 70%; border: 3px solid; padding: 10px;">
-    <select [(ngModel)]='PlayerSelected' (ngModelChange)='onPlayerSelected($event)'>
+    <select [(ngModel)]='PlayerSelected' (ngModelChange)='onPlayerSelected($event); 'updateChart()'>
         <option *ngFor="let percentile of percentiles" [value]="percentile.id">
             {{percentile.player}}
         </option>
