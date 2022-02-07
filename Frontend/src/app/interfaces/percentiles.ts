@@ -1,4 +1,7 @@
 export interface Percentiles {
+    toLowerCase: any;
+    
+    
     id: number
     player: string
     age: string

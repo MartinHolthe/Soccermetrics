@@ -1,15 +1,16 @@
-<div style="margin: auto; width: 70%; border: 3px solid; padding: 10px;">
-    <select [(ngModel)]='PlayerSelected' (ngModelChange)='onPlayerSelected($event);'>
-        <option *ngFor="let percentile of percentiles" [value]="percentile.id">
-            {{percentile.player}}
-        </option>
-    </select>
-</div>
+<mat-card>
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Search player</mat-label>
+            <input type="text" aria-label="Number" matInput [formControl]="myControl"
+                [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.player" (onSelectionChange)="onPlayerSelected(option.id)">
+                    {{option.player}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
 
-<div style="margin: auto; width: 70%; border: 3px solid; padding: 10px;">
-    Player ID: {{PlayerSelected}} 
-    <canvas id="canvas" style="width: 60%; margin: auto;">{{chart}}</canvas>
-</div>
-
-
-
+    <canvas id="canvas" style="width: 70%; margin: auto;">{{chart}}</canvas>
+</mat-card>

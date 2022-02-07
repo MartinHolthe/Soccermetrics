@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BundesligaService } from '../shared/services/bundesliga.service';
 import { Percentiles } from '../interfaces/percentiles';
-import { PercentilesId } from '../interfaces/percentilesId';
 import { Chart } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-bundesliga',
@@ -12,19 +14,40 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 })
 export class BundesligaComponent implements OnInit {
   
-  constructor(private bundesligaService: BundesligaService) {}
+  constructor(private bundesligaService: BundesligaService) {
+    
+  }
 
+  myControl = new FormControl();
   percentiles: Percentiles[] = [];
   PlayerSelected: Number | undefined;
-  percentilesId!: PercentilesId | undefined;
   selectedPlayerId: Number | undefined;
   chart: any;
+  filteredOptions: Observable<Percentiles[]> | undefined;
+
+
+
+  private _filter(value: string): Percentiles[] {
+    const filterValue = value.toLowerCase();
+
+    return this.percentiles.filter(option => option.player.toLowerCase().includes(filterValue));
+  }
 
   ngOnInit(): void {
     this.bundesligaService.getPlayers().subscribe((result) => {
       console.log('getPlayers succeded', result);
       this.percentiles = result;
+
+      this.onPlayerSelected(0); // set default player
+      //this.myControl.setValue(this.percentiles[0].player) // set default playername in search bar
     });
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      
+      map(value => (value.length >= 3 ? this._filter(value): []))
+    );
+    
   }
 
   onPlayerSelected(selectedPlayerId: number): void {
