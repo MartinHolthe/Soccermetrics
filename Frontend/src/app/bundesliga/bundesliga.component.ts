@@ -49,6 +49,12 @@ export class BundesligaComponent implements OnInit {
     );
     
   }
+  
+  //convert (){
+  //if(PlayerSelected = this.percentile.player) {
+  //   return this.percentile.id
+  //  }
+  // }
 
   onPlayerSelected(selectedPlayerId: number): void {
     console.log('Selected player: ', this.percentiles[selectedPlayerId]);
